@@ -2,8 +2,8 @@
 pipeline {
     agent any
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-creds')
-        IMAGE_NAME = "tuusuario/miweb"  // Reemplaza "tuusuario" con tu usuario de Docker Hub
+        DOCKER_HUB_CREDENTIALS = credentials('dockerhub')  // Asegúrate de que el ID de la credencial sea 'dockerhub'
+        IMAGE_NAME = "jvicmar95/miweb"  // Reemplaza "jvicmar95" con tu usuario de Docker Hub si es necesario
     }
     stages {
         stage('Build Docker Image') {
@@ -17,6 +17,7 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
+                    // Usar las credenciales de Docker Hub para login
                     sh "echo ${DOCKER_HUB_CREDENTIALS_PSW} | docker login -u ${DOCKER_HUB_CREDENTIALS_USR} --password-stdin"
                     sh "docker push ${IMAGE_NAME}:${version}"
                     sh "docker rmi ${IMAGE_NAME}:${version}"  // Limpiar imagen local

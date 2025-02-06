@@ -1,10 +1,9 @@
-// Jenkinsfile
 pipeline {
     agent any
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-creds')
         IMAGE_NAME = "jvicmar95/aplicacion"  // Reemplaza "tuusuario" con tu usuario de Docker Hub
-        KUBECONFIG = credentials('kubeconfig')
+        KUBECONFIG = credentials('kubeconfig')  // Asegúrate de que 'kubeconfig' es el ID correcto
     }
     stages {
         stage('Build Docker Image') {
@@ -27,7 +26,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    withKubeConfig([credentialsId: 'kubeconfig', serverUrl: '']) {
+                    withKubeConfig([credentialsId: 'kubeconfig']) {  // Solo pasa la credencial sin serverUrl
                         sh "kubectl apply -f k8s/app/deployment.yaml -f k8s/app/service.yaml"
                         sh "kubectl set image deployment/myweb-deployment myweb-container=${IMAGE_NAME}:${version}"
                     }

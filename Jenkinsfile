@@ -3,7 +3,7 @@ pipeline {
     agent any
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-creds')
-        IMAGE_NAME = "tuusuario/miweb"  // Reemplaza "tuusuario" con tu usuario de Docker Hub
+        IMAGE_NAME = "jvicmar95/aplicacion"  // Reemplaza "tuusuario" con tu usuario de Docker Hub
         KUBECONFIG = credentials('kubeconfig')
     }
     stages {

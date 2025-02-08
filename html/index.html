@@ -4,14 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CI/CD Pipeline</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>CI/CD Pipeline | Python + Flask</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/main.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h1>¡Hola, Keisota!</h1>
-        <p>Este es un ejemplo de una página HTML que forma parte de una pipeline CI/CD.</p>
-        <a href="https://github.com/" class="btn">Visita mi GitHub</a>
-    </div>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#about">Acerca de</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>¡Bienvenido a mi CI/CD Pipeline con Flask!</h1>
+            <p>Esta es una demostración de cómo integrar HTML, CSS, JavaScript y Python (Flask) en una aplicación web.</p>
+            <a href="#contact" class="cta">¡Contáctame!</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="content">
+            <h2>Acerca de</h2>
+            <p>Este sitio web utiliza una arquitectura moderna de aplicaciones web, utilizando tecnologías como HTML5, CSS3, JavaScript y Python (Flask) para crear una experiencia interactiva.</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="content">
+            <h2>Formulario de Contacto</h2>
+            <form id="contact-form" action="/send-message" method="POST">
+                <input type="text" name="name" placeholder="Tu nombre" required>
+                <input type="email" name="email" placeholder="Tu email" required>
+                <textarea name="message" placeholder="Tu mensaje..." required></textarea>
+                <button type="submit">Enviar mensaje</button>
+            </form>
+            <div id="response-message"></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 - Mi aplicación CI/CD con Flask</p>
+    </footer>
 </body>
 </html>

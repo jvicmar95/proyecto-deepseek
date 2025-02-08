@@ -3,52 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CI/CD Pipeline | Python + Flask</title>
-    <link rel="stylesheet" href="/static/styles.css">
-    <script src="/static/main.js" defer></script>
+    <title>Bienvenidos a DeepSeek</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <header>
-        <nav>
-            <ul>
-                <li><a href="#home">Inicio</a></li>
-                <li><a href="#about">Acerca de</a></li>
-                <li><a href="#contact">Contacto</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <h1>Bienvenidos a DeepSeek</h1>
+            <p>Explora las profundidades del conocimiento y la tecnología.</p>
+        </div>
     </header>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>¡Bienvenido a mi CI/CD Pipeline con Flask!</h1>
-            <p>Esta es una demostración de cómo integrar HTML, CSS, JavaScript y Python (Flask) en una aplicación web.</p>
-            <a href="#contact" class="cta">¡Contáctame!</a>
+    <section class="content">
+        <div class="container">
+            <h2>Sobre Nosotros</h2>
+            <p>DeepSeek es una plataforma dedicada a facilitar el acceso a tecnologías avanzadas mediante la automatización de procesos y el análisis de datos.</p>
         </div>
     </section>
 
-    <section id="about">
-        <div class="content">
-            <h2>Acerca de</h2>
-            <p>Este sitio web utiliza una arquitectura moderna de aplicaciones web, utilizando tecnologías como HTML5, CSS3, JavaScript y Python (Flask) para crear una experiencia interactiva.</p>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="content">
-            <h2>Formulario de Contacto</h2>
-            <form id="contact-form" action="/send-message" method="POST">
-                <input type="text" name="name" placeholder="Tu nombre" required>
-                <input type="email" name="email" placeholder="Tu email" required>
-                <textarea name="message" placeholder="Tu mensaje..." required></textarea>
-                <button type="submit">Enviar mensaje</button>
-            </form>
-            <div id="response-message"></div>
+    <section class="services">
+        <div class="container">
+            <h2>Nuestros Servicios</h2>
+            <div class="service-card">
+                <h3>Automatización de CI/CD</h3>
+                <p>Implementamos pipelines robustos de integración continua y despliegue continuo.</p>
+            </div>
+            <div class="service-card">
+                <h3>Consultoría DevOps</h3>
+                <p>Asesoramos en la adopción de mejores prácticas DevOps para mejorar la eficiencia.</p>
+            </div>
+            <div class="service-card">
+                <h3>Integración con Kubernetes</h3>
+                <p>Ayudamos a integrar y gestionar tus aplicaciones en clústeres de Kubernetes.</p>
+            </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 - Mi aplicación CI/CD con Flask</p>
+        <div class="container">
+            <p>&copy; 2025 DeepSeek | Todos los derechos reservados.</p>
+        </div>
     </footer>
+
 </body>
 </html>

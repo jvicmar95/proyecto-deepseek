@@ -1,17 +1,10 @@
-# Usar una imagen base de Python
-FROM python:3.9-slim
+# Usar una imagen base de nginx
+FROM nginx:alpine
 
-# Establecer el directorio de trabajo dentro del contenedor
-WORKDIR /app
+# Copiar los archivos de la carpeta 'html' a la carpeta de nginx
+COPY html/ /usr/share/nginx/html/
 
-# Copiar los archivos de la carpeta `html` que contienen el código de la app
-COPY html/ /app/
+# Exponer el puerto 80 para servir la aplicación
+EXPOSE 80
 
-# Instalar las dependencias necesarias para la app Flask
-RUN pip install --no-cache-dir -r /app/requirements.txt
-
-# Exponer el puerto en el que Flask estará sirviendo la app
-EXPOSE 5000
-
-# Comando para ejecutar Flask
-CMD ["python", "app.py"]
+# No es necesario el CMD porque nginx lo hace por defecto

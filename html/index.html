@@ -28,16 +28,6 @@
             font-size: 2em;
         }
 
-        /* Efecto Parallax */
-        .parallax {
-            background-image: url('https://www.w3schools.com/w3images/parallax1.jpg');
-            height: 500px;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
         /* Animación de texto de tipo "typing" */
         .typing-effect {
             font-size: 2em;
@@ -101,9 +91,6 @@
         </div>
     </header>
 
-    <!-- Sección Parallax -->
-    <section class="parallax"></section>
-
     <!-- Sección de Intro con Efecto de Escribiendo -->
     <section class="intro">
         <div class="container">
@@ -134,13 +121,6 @@
             let randomColor = colors[Math.floor(Math.random() * colors.length)];
             document.body.style.backgroundColor = randomColor;
         }
-
-        // Función de Parallax (efecto de desplazamiento en el fondo)
-        window.addEventListener('scroll', function() {
-            let parallax = document.querySelector('.parallax');
-            let offset = window.pageYOffset;
-            parallax.style.backgroundPosition = 'center ' + (offset * 0.7) + 'px';
-        });
 
         // Función para mostrar/ocultar el botón de scroll-to-top
         window.onscroll = function() {

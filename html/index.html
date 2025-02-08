@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos adicionales para el botón y los efectos */
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Estilo para el cambio de color al hacer scroll */
+        .scrolled {
+            color: #e74c3c;
+            font-size: 2em;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -23,8 +46,11 @@
 
     <section class="intro">
         <div class="container">
-            <h2>Explora el futuro de la tecnología con nosotros</h2>
+            <h2 id="title">Explora el futuro de la tecnología con nosotros</h2>
             <p>En DeepSeek nos dedicamos a la automatización, CI/CD y más.</p>
+            
+            <!-- Botón para cambiar el color de fondo -->
+            <button onclick="changeBackgroundColor()">Cambiar color de fondo</button>
         </div>
     </section>
 
@@ -33,5 +59,25 @@
             <p>&copy; 2025 DeepSeek</p>
         </div>
     </footer>
+
+    <!-- Código JavaScript Embebido -->
+    <script>
+        // Función que cambia el color de fondo de la página
+        function changeBackgroundColor() {
+            let colors = ['#f0f8ff', '#ffebcd', '#faebd7', '#d3d3d3', '#e6e6fa'];
+            let randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.style.backgroundColor = randomColor;
+        }
+
+        // Función para cambiar el color del título al hacer scroll
+        window.onscroll = function() {
+            let title = document.getElementById('title');
+            if (window.scrollY > 100) {
+                title.classList.add('scrolled');
+            } else {
+                title.classList.remove('scrolled');
+            }
+        };
+    </script>
 </body>
 </html>

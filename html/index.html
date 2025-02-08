@@ -16,6 +16,7 @@
             cursor: pointer;
             border-radius: 5px;
             margin-top: 20px;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
@@ -28,7 +29,7 @@
             font-size: 2em;
         }
 
-        /* Efecto Parallax */
+        /* Efecto Parallax mejorado */
         .parallax {
             background-image: url('https://www.w3schools.com/w3images/parallax1.jpg');
             height: 500px;
@@ -36,6 +37,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
+            transition: background-position 0.1s ease;
         }
 
         /* Animación de texto de tipo "typing" */
@@ -79,16 +81,29 @@
             font-size: 24px;
             cursor: pointer;
             display: none;
+            transition: background-color 0.3s ease;
         }
 
         .scrollToTop:hover {
             background-color: #e67e22;
         }
+
+        /* Animación de Fade In al hacer scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-in-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
+        <div class="container fade-in" id="headerContent">
             <h1 id="title">Bienvenido a DeepSeek</h1>
             <nav>
                 <ul>
@@ -107,9 +122,10 @@
     <!-- Sección de Intro con Efecto de Escribiendo -->
     <section class="intro">
         <div class="container">
-            <h2 class="typing-effect">Explora el futuro de la tecnología con nosotros</h2>
+            <h2 class="typing-effect" id="introText">Explora el futuro de la tecnología con nosotros</h2>
             <p>En DeepSeek nos dedicamos a la automatización, CI/CD y más.</p>
             <button onclick="changeBackgroundColor()">Cambiar color de fondo</button>
+            <button onclick="changeIntroText()">Cambiar texto de introducción</button>
         </div>
     </section>
 
@@ -117,7 +133,7 @@
     <button class="scrollToTop" id="scrollToTop" onclick="scrollToTop()">↑</button>
 
     <footer>
-        <div class="container">
+        <div class="container fade-in">
             <p>&copy; 2025 DeepSeek</p>
         </div>
     </footer>
@@ -135,7 +151,16 @@
         window.addEventListener('scroll', function() {
             let parallax = document.querySelector('.parallax');
             let offset = window.pageYOffset;
-            parallax.style.backgroundPosition = 'center ' + (offset * 0.7) + 'px';
+            parallax.style.backgroundPosition = 'center ' + (offset * 0.5) + 'px';
+
+            // Aplicar efecto de fade-in al hacer scroll
+            let fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(element => {
+                let elementPosition = element.getBoundingClientRect().top;
+                if (elementPosition < window.innerHeight - 100) {
+                    element.classList.add('fade-in-visible');
+                }
+            });
         });
 
         // Función para mostrar/ocultar el botón de scroll-to-top
@@ -152,6 +177,18 @@
         function scrollToTop() {
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
+        }
+
+        // Cambiar el texto de la sección de introducción
+        function changeIntroText() {
+            const texts = [
+                "Impulsa tu futuro con la inteligencia artificial.",
+                "Automatización avanzada para empresas del mañana.",
+                "Tu socio ideal en CI/CD y transformación digital.",
+                "Innova, automatiza, evoluciona con DeepSeek."
+            ];
+            const randomText = texts[Math.floor(Math.random() * texts.length)];
+            document.getElementById('introText').textContent = randomText;
         }
     </script>
 </body>

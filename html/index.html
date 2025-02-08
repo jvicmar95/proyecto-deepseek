@@ -27,26 +27,65 @@
             color: #e74c3c;
             font-size: 2em;
         }
+
+        /* Estilos para el botón de mostrar/ocultar navegación */
+        .toggle-nav-btn {
+            display: inline-block;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .toggle-nav-btn:hover {
+            background-color: #27ae60;
+        }
+
+        /* Estilos adicionales para ocultar la navegación */
+        nav ul {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        /* Animación de texto */
+        .title-animated {
+            transition: color 0.3s ease, font-size 0.3s ease;
+        }
+
+        .title-animated:hover {
+            color: #8e44ad;
+            font-size: 2.5em;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Bienvenido a DeepSeek</h1>
+            <h1 id="title" class="title-animated">Bienvenido a DeepSeek</h1>
             <nav>
-                <ul>
+                <ul id="nav-links">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="about.html">Sobre Nosotros</a></li>
                     <li><a href="services.html">Servicios</a></li>
                     <li><a href="contact.html">Contacto</a></li>
                 </ul>
             </nav>
+            <!-- Botón para ocultar/mostrar navegación -->
+            <button class="toggle-nav-btn" onclick="toggleNav()">Mostrar/Ocultar Menú</button>
         </div>
     </header>
 
     <section class="intro">
         <div class="container">
-            <h2 id="title">Explora el futuro de la tecnología con nosotros</h2>
+            <h2>Explora el futuro de la tecnología con nosotros</h2>
             <p>En DeepSeek nos dedicamos a la automatización, CI/CD y más.</p>
             
             <!-- Botón para cambiar el color de fondo -->
@@ -57,19 +96,26 @@
     <footer>
         <div class="container">
             <p>&copy; 2025 DeepSeek</p>
+            <p>Visitas: <span id="visit-count">0</span></p>
         </div>
     </footer>
 
     <!-- Código JavaScript Embebido -->
     <script>
-        // Función que cambia el color de fondo de la página
+        // 1. Alerta de bienvenida al cargar la página
+        window.onload = function() {
+            alert("¡Bienvenido a DeepSeek! Explora el futuro de la tecnología con nosotros.");
+            updateVisitCount();
+        };
+
+        // 2. Función que cambia el color de fondo de la página
         function changeBackgroundColor() {
             let colors = ['#f0f8ff', '#ffebcd', '#faebd7', '#d3d3d3', '#e6e6fa'];
             let randomColor = colors[Math.floor(Math.random() * colors.length)];
             document.body.style.backgroundColor = randomColor;
         }
 
-        // Función para cambiar el color del título al hacer scroll
+        // 3. Función para cambiar el color del título al hacer scroll
         window.onscroll = function() {
             let title = document.getElementById('title');
             if (window.scrollY > 100) {
@@ -78,6 +124,24 @@
                 title.classList.remove('scrolled');
             }
         };
+
+        // 4. Contador de visitas
+        function updateVisitCount() {
+            let visitCount = localStorage.getItem('visitCount') || 0;
+            visitCount = parseInt(visitCount) + 1;
+            localStorage.setItem('visitCount', visitCount);
+            document.getElementById('visit-count').textContent = visitCount;
+        }
+
+        // 5. Función para mostrar/ocultar la navegación
+        function toggleNav() {
+            const navLinks = document.getElementById('nav-links');
+            if (navLinks.style.display === 'none') {
+                navLinks.style.display = 'flex';
+            } else {
+                navLinks.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>

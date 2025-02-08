@@ -28,119 +28,130 @@
             font-size: 2em;
         }
 
-        /* Estilos para el botón de mostrar/ocultar navegación */
-        .toggle-nav-btn {
-            display: inline-block;
-            background-color: #2ecc71;
+        /* Efecto Parallax */
+        .parallax {
+            background-image: url('https://www.w3schools.com/w3images/parallax1.jpg');
+            height: 500px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Animación de texto de tipo "typing" */
+        .typing-effect {
+            font-size: 2em;
+            font-weight: bold;
+            color: #3498db;
+            overflow: hidden;
+            border-right: .15em solid orange;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .1em;
+            animation: typing 4s steps(40) 1s 1 normal both, blink 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        /* Botón Scroll to Top */
+        .scrollToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #f39c12;
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 24px;
             cursor: pointer;
-            margin-top: 20px;
+            display: none;
         }
 
-        .toggle-nav-btn:hover {
-            background-color: #27ae60;
-        }
-
-        /* Estilos adicionales para ocultar la navegación */
-        nav ul {
-            display: flex;
-            list-style-type: none;
-            padding: 0;
-        }
-
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        /* Animación de texto */
-        .title-animated {
-            transition: color 0.3s ease, font-size 0.3s ease;
-        }
-
-        .title-animated:hover {
-            color: #8e44ad;
-            font-size: 2.5em;
+        .scrollToTop:hover {
+            background-color: #e67e22;
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1 id="title" class="title-animated">Bienvenido a DeepSeek</h1>
+            <h1 id="title">Bienvenido a DeepSeek</h1>
             <nav>
-                <ul id="nav-links">
+                <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="about.html">Sobre Nosotros</a></li>
                     <li><a href="services.html">Servicios</a></li>
                     <li><a href="contact.html">Contacto</a></li>
                 </ul>
             </nav>
-            <!-- Botón para ocultar/mostrar navegación -->
-            <button class="toggle-nav-btn" onclick="toggleNav()">Mostrar/Ocultar Menú</button>
         </div>
     </header>
 
+    <!-- Sección Parallax -->
+    <section class="parallax"></section>
+
+    <!-- Sección de Intro con Efecto de Escribiendo -->
     <section class="intro">
         <div class="container">
-            <h2>Explora el futuro de la tecnología con nosotros</h2>
+            <h2 class="typing-effect">Explora el futuro de la tecnología con nosotros</h2>
             <p>En DeepSeek nos dedicamos a la automatización, CI/CD y más.</p>
-            
-            <!-- Botón para cambiar el color de fondo -->
             <button onclick="changeBackgroundColor()">Cambiar color de fondo</button>
         </div>
     </section>
 
+    <!-- Botón de Scroll to Top -->
+    <button class="scrollToTop" id="scrollToTop" onclick="scrollToTop()">↑</button>
+
     <footer>
         <div class="container">
             <p>&copy; 2025 DeepSeek</p>
-            <p>Visitas: <span id="visit-count">0</span></p>
         </div>
     </footer>
 
     <!-- Código JavaScript Embebido -->
     <script>
-        // 1. Alerta de bienvenida al cargar la página
-        window.onload = function() {
-            alert("¡Bienvenido a DeepSeek! Explora el futuro de la tecnología con nosotros.");
-            updateVisitCount();
-        };
-
-        // 2. Función que cambia el color de fondo de la página
+        // Cambiar el color de fondo de forma dinámica
         function changeBackgroundColor() {
             let colors = ['#f0f8ff', '#ffebcd', '#faebd7', '#d3d3d3', '#e6e6fa'];
             let randomColor = colors[Math.floor(Math.random() * colors.length)];
             document.body.style.backgroundColor = randomColor;
         }
 
-        // 3. Función para cambiar el color del título al hacer scroll
+        // Función de Parallax (efecto de desplazamiento en el fondo)
+        window.addEventListener('scroll', function() {
+            let parallax = document.querySelector('.parallax');
+            let offset = window.pageYOffset;
+            parallax.style.backgroundPosition = 'center ' + (offset * 0.7) + 'px';
+        });
+
+        // Función para mostrar/ocultar el botón de scroll-to-top
         window.onscroll = function() {
-            let title = document.getElementById('title');
-            if (window.scrollY > 100) {
-                title.classList.add('scrolled');
+            let scrollToTopButton = document.getElementById('scrollToTop');
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                scrollToTopButton.style.display = "block";
             } else {
-                title.classList.remove('scrolled');
+                scrollToTopButton.style.display = "none";
             }
         };
 
-        // 4. Contador de visitas
-        function updateVisitCount() {
-            let visitCount = localStorage.getItem('visitCount') || 0;
-            visitCount = parseInt(visitCount) + 1;
-            localStorage.setItem('visitCount', visitCount);
-            document.getElementById('visit-count').textContent = visitCount;
-        }
-
-        // 5. Función para mostrar/ocultar la navegación
-        function toggleNav() {
-            const navLinks = document.getElementById('nav-links');
-            if (navLinks.style.display === 'none') {
-                navLinks.style.display = 'flex';
-            } else {
-                navLinks.style.display = 'none';
-            }
+        // Función para hacer scroll al inicio
+        function scrollToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
         }
     </script>
 </body>

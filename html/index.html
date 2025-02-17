@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MI PAGINA</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
-        /* Estilos adicionales para el botón y los efectos */
+        /* Estilos para los botones y el formulario */
         button {
             padding: 10px 20px;
             font-size: 1em;
@@ -22,119 +21,97 @@
             background-color: #2980b9;
         }
 
-        /* Estilo para el cambio de color al hacer scroll */
-        .scrolled {
-            color: #e74c3c;
-            font-size: 2em;
+        .form-container {
+            text-align: center;
+            margin-top: 30px;
         }
 
-        /* Animación de texto de tipo "typing" */
-        .typing-effect {
-            font-size: 2em;
-            font-weight: bold;
-            color: #3498db;
-            overflow: hidden;
-            border-right: .15em solid orange;
-            white-space: nowrap;
-            margin: 0 auto;
-            letter-spacing: .1em;
-            animation: typing 4s steps(40) 1s 1 normal both, blink 0.75s step-end infinite;
+        .form-container input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 1em;
+            width: 200px;
         }
 
-        @keyframes typing {
-            from {
-                width: 0;
-            }
-            to {
-                width: 100%;
-            }
+        /* Estilo para la lista de personas */
+        .person-list {
+            margin-top: 20px;
+            text-align: center;
         }
 
-        @keyframes blink {
-            50% {
-                border-color: transparent;
-            }
+        .person-list ul {
+            list-style-type: none;
+            padding: 0;
         }
 
-        /* Botón Scroll to Top */
-        .scrollToTop {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #f39c12;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            display: none;
-        }
-
-        .scrollToTop:hover {
-            background-color: #e67e22;
+        .person-list li {
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1 id="title">MI PAGINA</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="about.html">Sobre Nosotros</a></li>
-                    <li><a href="services.html">Servicios</a></li>
-                    <li><a href="contact.html">Contacto</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <h1 style="text-align: center;">Gestionar Personas</h1>
 
-    <!-- Sección de Intro con Efecto de Escribiendo -->
-    <section class="intro">
-        <div class="container">
-            <h2 class="typing-effect">Explora el futuro de la tecnología con nosotros</h2>
-            <p>En DeepSeek nos dedicamos a la automatización, CI/CD y más.</p>
-
-            <!-- Se eliminó la imagen -->
-
-            <button onclick="changeBackgroundColor()">Cambiar color de fondo</button>
-        </div>
+    <!-- Formulario para añadir persona -->
+    <section class="form-container">
+        <h3>Añadir Persona</h3>
+        <form id="addPersonForm">
+            <input type="text" id="name" placeholder="Nombre" required />
+            <input type="number" id="age" placeholder="Edad" required />
+            <button type="submit">Añadir Persona</button>
+        </form>
     </section>
 
-    <!-- Botón de Scroll to Top -->
-    <button class="scrollToTop" id="scrollToTop" onclick="scrollToTop()">↑</button>
+    <!-- Botón para buscar personas -->
+    <section class="form-container">
+        <h3>Buscar Personas</h3>
+        <button onclick="getPeople()">Ver Personas</button>
+    </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 DeepSeek</p>
-        </div>
-    </footer>
+    <!-- Mostrar lista de personas -->
+    <section class="person-list" id="personList">
+        <ul></ul>
+    </section>
 
     <!-- Código JavaScript Embebido -->
     <script>
-        // Cambiar el color de fondo de forma dinámica
-        function changeBackgroundColor() {
-            let colors = ['#f0f8ff', '#ffebcd', '#faebd7', '#d3d3d3', '#e6e6fa'];
-            let randomColor = colors[Math.floor(Math.random() * colors.length)];
-            document.body.style.backgroundColor = randomColor;
-        }
+        // Función para enviar los datos del formulario y añadir persona
+        document.getElementById('addPersonForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
 
-        // Función para mostrar/ocultar el botón de scroll-to-top
-        window.onscroll = function() {
-            let scrollToTopButton = document.getElementById('scrollToTop');
-            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                scrollToTopButton.style.display = "block";
-            } else {
-                scrollToTopButton.style.display = "none";
-            }
-        };
+            // Enviar los datos a un servidor backend para añadir la persona (esto es solo un ejemplo)
+            fetch('http://localhost:5000/add-person', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, age })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Persona añadida correctamente');
+                document.getElementById('name').value = '';
+                document.getElementById('age').value = '';
+            })
+            .catch(error => console.error('Error al añadir persona:', error));
+        });
 
-        // Función para hacer scroll al inicio
-        function scrollToTop() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
+        // Función para obtener la lista de personas
+        function getPeople() {
+            fetch('http://localhost:5000/get-people')
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('personList').querySelector('ul');
+                    list.innerHTML = '';  // Limpiar la lista antes de mostrar nuevos datos
+                    data.forEach(person => {
+                        const li = document.createElement('li');
+                        li.textContent = `${person.name}, ${person.age} años`;
+                        list.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Error al obtener personas:', error));
         }
     </script>
 </body>
